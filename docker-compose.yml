@@ -1,0 +1,58 @@
+version: '3.2'
+services:
+  web1:
+    image: magento2_custom
+    container_name: magento001
+    ports:
+      - "81:80"
+    links:
+      - db1
+    env_file:
+      - env1
+    volumes:
+      - type: "volume"
+        source: ./tmp
+        target: /var/www/html/tmp
+      # - ~/Workspace/Magento/tmp/app/code/Magento/Catalog/Block/Product/Price.php:/var/www/html/app/code/Magento/Catalog/Block/Product/Price.php
+  web2:
+    image: magento2_custom
+    container_name: magento002
+    ports:
+      - "82:80"
+    links:
+      - db2
+    env_file:
+      - env2
+    volumes:
+      - type: "volume"
+        source: ./tmp
+        target: /var/www/html/tmp
+  db1:
+    image: mysql:5.6.23
+    container_name: db_magento001
+    ports:
+      - "3307:3306"
+    volumes:
+      - type: "volume"
+        source: ./db1
+        target: /var/lib/mysql
+    env_file:
+      - env1
+  db2:
+    image: mysql:5.6.23
+    container_name: db_magento002
+    ports:
+      - "3308:3306"
+    volumes:
+      - type: "volume"
+        source: ./db2
+        target: /var/lib/mysql
+    env_file:
+      - env2
+    
+  # phpmyadmin:
+  #   image: phpmyadmin/phpmyadmin
+  #   ports:
+  #     - "8580:80"
+  #   links:
+  #     - db
