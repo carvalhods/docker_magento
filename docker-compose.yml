@@ -10,9 +10,10 @@ services:
     env_file:
       - env1
     volumes:
-      - type: "volume"
-        source: ./tmp
-        target: /var/www/html/tmp
+      - ./tmp:/var/www/html/tmp
+        #      - type: "volume"
+        #source: ./tmp
+        #target: /var/www/html/tmp
       # - ~/Workspace/Magento/tmp/app/code/Magento/Catalog/Block/Product/Price.php:/var/www/html/app/code/Magento/Catalog/Block/Product/Price.php
   web2:
     image: magento2_custom
@@ -24,18 +25,20 @@ services:
     env_file:
       - env2
     volumes:
-      - type: "volume"
-        source: ./tmp
-        target: /var/www/html/tmp
+      - ./tmp:/var/www/html/tmp 
+        #      - type: "volume"
+        #source: ./tmp
+        #target: /var/www/html/tmp
   db1:
     image: mysql:5.6.23
     container_name: db_magento001
     ports:
       - "3307:3306"
     volumes:
-      - type: "volume"
-        source: ./db1
-        target: /var/lib/mysql
+      - ./db1:/var/lib/mysql
+        # - type: "volume"
+        #source: ./db1
+        #target: /var/lib/mysql
     env_file:
       - env1
   db2:
@@ -44,9 +47,10 @@ services:
     ports:
       - "3308:3306"
     volumes:
-      - type: "volume"
-        source: ./db2
-        target: /var/lib/mysql
+       - ./db2:/var/lib/mysql
+      #- type: "volume"
+      #  source: ./db2
+      #  target: /var/lib/mysql
     env_file:
       - env2
     
